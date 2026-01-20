@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style-type: none !important;
+}
+
+.navbar {
+    background-color: #343a40;
+    flex-wrap: nowrap !important;
+}
+.navbar-nav {
+    flex-direction: row !important;
+    background-color: #343a40;
+    width: 100%;
+    justify-content: space-between;
+}
+.navbar-brand, .nav-link {
+    color: #ffffff !important;
+    border: 0;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.create-task-form {
+    display: flex;
+    align-items: center;
+}
+.create-task-form #div_id_name {
+    flex: 1;
+    margin-right: 10px;
+    margin-bottom: 0 !important;
+}
+
+.list-group-item {
+    display: flex !important;
+    justify-content: space-between;
+}
+.list-group-item .buttons {
+    display: flex !important;
+    align-items: center;
+}
+.list-group-item .buttons form:not(:last-child) {
+    margin-right: 5px;
+}
+
+.task_content .task_date {
+    color: #656565;
+    font-size: 13px;
+}
+.task_content p {
+    margin-bottom: 3px;
+}
+
+.register-form {
+    text-align: left;
+}
+.logout-form {
+    display: flex;
+}
+.logout-form p {
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+.logout-form button {
+    border: none;
+}
+
+#id_username_helptext {
+    display: none !important;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .list-group-item {
+        display: block !important;
+    }
+    .list-group-item .buttons {
+        margin-top: 10px;
+    }
+}

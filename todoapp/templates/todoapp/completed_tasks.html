@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block title %}Completed Tasks{% endblock %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-5">Completed tasks</h1>
+        <p class="lead">Check your already completed or abandoned tasks</p>
+        <hr class="my-4">
+    </div>
+
+    <ul class="list-group">
+        {% for task in tasks %}
+
+            {% if task.status == 1 %}
+            	<li class="list-group-item list-group-item-success">
+            {% elif task.status == 2 %}
+                <li class="list-group-item list-group-item-warning">
+            {% endif %}
+                  <div class="task_content">
+                      <p class="task_name">{{ task.name }}</p>
+                      <p class="task_date">Created: {{ task.date_of_completion|date:"Y-m-d H:i" }}</p>
+                      <p class="task_date">Completed: {{ task.date_of_completion|date:"Y-m-d H:i" }}</p>
+                  </div>
+
+                  <div class="buttons">
+                      <form method="POST" action="{% url 'task_delete' task.task_id %}?next={{ request.path }}" class="buttons">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                      </form>
+                  </div>
+                </li>
+
+        {% empty %}
+            <li class="list-group-item">
+              You haven`t completed tasks any yet.
+            </li>
+
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-5">TodoApp</h1>
+        <p class="lead">Make and manage your tasks</p>
+        <hr class="my-4">
+
+        <form method="post" class="create-task-form">
+            {% csrf_token %}
+            {% crispy form %}
+            <button type="submit" class="btn btn-primary">Make task</button>
+        </form>
+    </div>
+
+    <ul class="list-group">
+        {% for task in tasks %}
+          <li class="list-group-item">
+              <div class="task_content">
+                  <p class="task_name">{{ task.name }}</p>
+                  <p class="task_date">Created: {{ task.date_of_creation|date:"Y-m-d H:i" }}</p>
+              </div>
+
+              <div class="buttons">
+                  <form method="POST" action="{% url 'task_complete' task.task_id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Complete</button>
+                  </form>
+                  <form method="POST" action="{% url 'task_dump' task.task_id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-warning">Abandon</button>
+                  </form>
+                  <form method="POST" action="{% url 'task_delete' task.task_id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+              </div>
+          </li>
+
+        {% empty %}
+            <li class="list-group-item">
+              You don`t have any tasks yet.
+            </li>
+
+        {% endfor %}
+    </ul>
+{% endblock %}

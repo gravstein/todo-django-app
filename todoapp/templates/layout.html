@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}TodoApp{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-dark">
+        <a href="{% url 'home' %}" class="navbar-brand">TodoApp</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="{% url 'completed' %}" class="nav-link">Completed Tasks</a>
+            </li>
+
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post" class="logout-form">
+                    {% csrf_token %}
+                    <p class="nav-link">Hello {{ user.get_username }}!</p>
+                    <button type="submit" class="btn btn-link nav-link">Logout</button>
+                </form>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+
+    <script> // get user tz and save a cookie and use it middleware.py
+        // Get the user's timezone using the Internationalization API
+        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // Store it in a cookie
+        document.cookie = "django_timezone=" + userTimezone + "; path=/";
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
